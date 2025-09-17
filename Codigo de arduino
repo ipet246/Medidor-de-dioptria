@@ -1,0 +1,121 @@
+#include <WiFi.h>
+#include <HTTPClient.h>
+#include <ArduinoJson.h>
+#include <LiquidCrystal.h>
+
+// Configuración WiFi
+const char* ssid = "Proyecto arduino";
+const char* password = "";
+
+// Configuración del servidor
+const char* serverURL = "http://192.168.1.2/optica/recibe.php";
+
+// Pines del sensor ultrasónico
+const int trigPin = 23;
+const int echoPin = 22;
+
+// Configuración del LCD (RS, EN, D4, D5, D6, D7)
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+
+void setup() {
+  Serial.begin(115200);
+  
+  // Configurar pines del sensor
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  
+  // Inicializar LCD
+  lcd.begin(16, 2);
+  lcd.clear();
+  lcd.print("Iniciando...");
+  
+  // Conectar a WiFi
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(1000);
+    Serial.println("Conectando a WiFi...");
+  }
+  
+  Serial.println("WiFi conectado!");
+  lcd.clear();
+  lcd.print("WiFi OK");
+  delay(2000);
+}
+
+void loop() {
+  // Medir distancia
+  float distancia_cm = medirDistancia();
+  float distancia_m = distancia_cm / 100.0;
+  
+  // Mostrar en LCD
+  mostrarEnLCD(distancia_cm, distancia_m);
+  
+  // Enviar datos por HTTP
+  enviarDatos(distancia_m);
+  
+  delay(2000); // Esperar 2 segundos antes de la próxima medición
+}
+
+float medirDistancia() {
+  // Limpiar el trigPin
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  
+  // Enviar pulso de 10 microsegundos
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  
+  // Leer el echoPin
+  long duracion = pulseIn(echoPin, HIGH);
+  
+  // Calcular distancia en cm
+  float distancia = duracion * 0.034 / 2;
+  
+  return distancia;
+}
+
+void mostrarEnLCD(float cm, float m) {
+  lcd.clear();
+  
+  // Línea 1: mostrar en cm
+  lcd.setCursor(0, 0);
+  lcd.print("Dist: ");
+  lcd.print(cm, 1);
+  lcd.print(" cm");
+  
+  // Línea 2: mostrar en metros
+  lcd.setCursor(0, 1);
+  lcd.print("     ");
+  lcd.print(m, 3);
+  lcd.print(" m");
+}
+
+void enviarDatos(float distancia_metros) {
+  if (WiFi.status() == WL_CONNECTED) {
+    HTTPClient http;
+    http.begin(serverURL);
+    http.addHeader("Content-Type", "application/json");
+    
+    // Crear JSON
+    StaticJsonDocument<200> doc;
+    doc["distancia"] = distancia_metros;
+    
+    String jsonString;
+    serializeJson(doc, jsonString);
+    
+    // Enviar POST
+    int httpResponseCode = http.POST(jsonString);
+    
+    if (httpResponseCode > 0) {
+      String response = http.getString();
+      Serial.println("Respuesta del servidor: " + response);
+    } else {
+      Serial.println("Error en la petición HTTP: " + String(httpResponseCode));
+    }
+    
+    http.end();
+  } else {
+    Serial.println("WiFi desconectado");
+  }
+}
