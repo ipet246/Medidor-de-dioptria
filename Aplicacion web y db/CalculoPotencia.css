@@ -1,0 +1,105 @@
+body {/*cuerpo principal*/
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f6fa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+form {/*caja principal*/
+  background-color: #ffffff;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+}
+
+h2 {/*titulo*/
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+  color:#6a4bb1;
+}
+
+label {/*Etiquetas*/
+  margin: 10px 0 5px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1.5em;
+  color: #bd0df3;
+}
+
+/* Estilos para la sección de potencias */
+.potencias-container {
+  margin: 15px 0;
+  padding: 15px;
+  background-color: #f9f8fd;
+  border-radius: 8px;
+  border: 1px solid #e0d9f0;
+}
+
+.potencia-option {
+  display: flex;
+  align-items: center;
+  margin: 8px 0;
+  padding: 8px;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+.potencia-option:hover {
+  background-color: #a781e5;
+}
+
+.potencia-option input[type="radio"] {
+  margin-right: 10px;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: #6a4bb1;
+}
+
+.potencia-option label {
+  margin: 0;
+  font-size: 0.95em;
+  color: #4a4a4a;
+  cursor: pointer;
+  flex-grow: 1;
+}
+
+.potencia-option input[type="radio"]:checked + label {
+  color: #6a4bb1;
+  font-weight: 500;
+}
+
+/* Mensaje cuando no hay potencias */
+.no-potencias {
+  text-align: center;
+  color: #888;
+  font-style: italic;
+  padding: 20px;
+}
+
+button {/*botones*/
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #c6a2f6;
+  color: #3b0066;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 20px;
+}
+
+button:hover {/*Al pasar el cursor*/
+  background: #b079fd;
+}

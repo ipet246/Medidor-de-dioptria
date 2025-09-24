@@ -1,0 +1,129 @@
+ body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f6fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        form {
+            background-color: #ffffff;
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h2 {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 25px;
+            text-align: center;
+            color: #c81aef;
+        }
+
+        .field-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            gap: 15px;
+        }
+
+        .field-group.vertical {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 5px;
+        }
+
+        label {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 1em;
+            color: #131213;
+            flex: 1;
+            text-align: left;
+        }
+
+        /* Clase resaltar para labels especiales */
+        label.resaltar {
+            color: #c81aef !important;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        button {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #c6a2f6;
+            color: #3b0066;
+            padding: 12px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            min-width: 120px;
+        }
+
+        /* Clase resaltarB para botones especiales */
+        button.resaltarB {
+            background: #c81aef !important;
+            color: white !important;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(255, 55, 66, 0.3);
+        }
+
+        button:hover {
+            background: #b079fd;
+        }
+
+        button.resaltarB:hover {
+            background: #bb0be7 !important;
+            box-shadow: 0 6px 12px rgba(200, 25, 239, 0.859);
+        }
+
+        select {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #c6a2f6;
+            color: #3b0066;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        select:hover {
+            background: #b079fd;
+        }
+
+        select:focus {
+            outline: none;
+            background: #b079fd;
+        }
+
+        .submit-btn {
+            margin-top: 20px;
+            background: #c539f0;
+            color: white;
+            font-weight: bold;
+            padding: 15px;
+            font-size: 1.1em;
+        }
+
+        .submit-btn:hover {
+            background: #5a3ba1;
+        }
+
+        /* Botones de solo lectura (datos) */
+        button[readonly] {
+            cursor: default;
+        }
